@@ -2,17 +2,17 @@ import { Navigate } from "react-router-dom"
 
 interface Props {
   isAllowed: boolean;
-  children: React.ReactNode; // Representa el contenido que queremos proteger
+  userRole?: string;
+  requiredRole?: string;
+  children: React.ReactNode; 
 }
 
-const ProtectedRoute = ({isAllowed, children}:Props) => {
-  //Si no esta permitido, lo enviamos al Login inmediatamente
-  if(!isAllowed){
-      return <Navigate to="/login"/>
-  }
-  return (
-    <div>{children}</div>
-  )
+const ProtectedRoute = ({ isAllowed, userRole, requiredRole, children }: Props) => {
+  if (!isAllowed) return <Navigate to="/login" />
+  if (requiredRole && userRole !== requiredRole) return <Navigate to="/unauthorized" />
+
+  return <div>{children}</div>
 }
+
 
 export default ProtectedRoute
