@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
-import ProtectedRoute from "./components/PotectedRoute/ProtectedRoute"
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 
 //Paginas de Ejemplo
 const Home = () => <h1 className="text-xl">Pagina Publica Home</h1>
 const Admin = () => <h1 className="text-xl text-indigo-600 font-bold">Zona VIP: Panel de Administracion</h1>
-const Login = () => <h1 className="text-xl text-red-500">Desdes Iniciar Sesion</h1>
+const Login = () => <h1 className="text-xl text-red-500">Debes Iniciar Sesion</h1>
 
 function App() {
   const [user, setUser] = useState<{id:number; name:string;} | null>(null)
