@@ -1,34 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import ProtectedRoute from "./components/PotectedRoute/ProtectedRoute"
+
+//Paginas de Ejemplo
+const Home = () => <h1 className="text-xl">Pagina Publica Home</h1>
+const Admin = () => <h1 className="text-xl text-indigo-600 font-bold">Zona VIP: Panel de Administracion</h1>
+const Login = () => <h1 className="text-xl text-red-500">Desdes Iniciar Sesion</h1>
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [user, setUser] = useState<{id:number; name:string;} | null>(null)
+  const login = () => setUser({id:1, name:"Vicherul"})
+  const logout = () => setUser(null)
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+  <nav className="p-4 bg-slate-800 text-white flex justify-between">
+    
+      <div className="flex gap-4">
+        <Link to="/">Inicio</Link>
+        <Link to="/admin">Admin (VIP)</Link>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+     <button className={`px-3 py-1 rounded ${user ? 'bg-red-500' : 'bg-green-500'}`} onClick={user ? logout : login}>
+        {user ? 'Cerrar Sesion' : 'Simular Login'}
+      </button>
+    </nav>
+    <div className="p-10">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        {/* Ruta protegida- Envolvemos el componente admin con nuestro Guardaespaldas */}
+        <Route path="/admin" element={
+          <ProtectedRoute isAllowed={!!user}>
+            <Admin />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </div>
+  </BrowserRouter>
   )
 }
 
