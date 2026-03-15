@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
-import Home from "./components/Home/Home"
-import Login from "./components/Login/Login"
-import Denegado from "./components/Denegado/Denegado"
+import ProtectedRoute from "./components/Pages/ProtectedRoute"
+import Home from "./components/Pages/Home"
+import Login from "./components/Pages/Login"
+import Denegado from "./components/Pages/Denegado"
 //Paginas protegidas
-import Perfil from "./components/Perfil/Perfil"
-import DashboardAdmin from "./components/Dashboard/Dashboard"
+import Perfil from "./components/Pages/Perfil"
+import DashboardAdmin from "./components/Pages/Dashboard"
 import { dateToday } from "./components/utils/functions"
 
 function App() {
